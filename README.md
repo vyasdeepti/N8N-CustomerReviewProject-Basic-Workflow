@@ -1,5 +1,8 @@
 This workflow collects customer feedback through a form, rewards positive feedback with discount eligibility, and logs all responses to Google Sheets.
 
+<img width="1403" height="721" alt="Workflow Image" src="https://github.com/user-attachments/assets/3c31747b-4d1e-4963-9f46-5a04635ad950" />
+
+
 How it works:
 
 Form Trigger - Presents a feedback form collecting:
