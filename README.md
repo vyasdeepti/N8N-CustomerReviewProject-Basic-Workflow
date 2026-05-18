@@ -32,3 +32,7 @@ Appends every submission as a new row with all fields including the discount sta
 - 📑 Complete audit trail of all customer responses
 - 💾 Preserves all original form data throughout the workflow
 - ⚡ Handles all feedback types uniformly after discount assignment
+
+  Output:
+  <img width="1229" height="510" alt="AdobeExpressPhotos_2634539f87524a0ca9ca0769faa9c792_CopyEdited" src="https://github.com/user-attachments/assets/45699e8c-1aba-4396-91d9-abf261058aaa" />
+
