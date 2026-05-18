@@ -1,0 +1,439 @@
+{
+  "name": "Customer review-starting with N8N",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Feedback form",
+        "formDescription": "Getting feedback from the customers about our product",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Email ID",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Age",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Feedback",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Positive"
+                  },
+                  {
+                    "option": "Neutral"
+                  },
+                  {
+                    "option": "Negative"
+                  }
+                ]
+              },
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        -960,
+        -224
+      ],
+      "id": "82e9e5f8-b96f-488d-beff-e6b4fa79a80a",
+      "name": "On form submission",
+      "webhookId": "91ce9a6a-2a96-40ee-95ae-253af2894934"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        -288,
+        -224
+      ],
+      "id": "e22e586f-1266-4a6c-b027-0e8f6f3d25c3",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "14pHJxioBroRQWyq98SLf4m693ij2pfKfUbT1CK708bg",
+          "mode": "list",
+          "cachedResultName": "Customers Feedback Response",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14pHJxioBroRQWyq98SLf4m693ij2pfKfUbT1CK708bg/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/14pHJxioBroRQWyq98SLf4m693ij2pfKfUbT1CK708bg/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Email ID",
+              "displayName": "Email ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Age",
+              "displayName": "Age",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Feedback",
+              "displayName": "Feedback",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "submittedAt",
+              "displayName": "submittedAt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "formMode",
+              "displayName": "formMode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -64,
+        -224
+      ],
+      "id": "642d03b4-1634-459d-b190-eb3ae3fc6d07",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "xH2nBexfUrj3tbnL",
+          "name": "Google Sheets OAuth2 API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "87ee27a3-058c-47b0-a93e-2042bd2ca454",
+              "leftValue": "={{ $json.Feedback }}",
+              "rightValue": "=Positive",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -736,
+        -224
+      ],
+      "id": "85770144-b50e-4049-b37d-15bfde7fe250",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5458087c-5a43-47fa-8a97-59600b06bbb0",
+              "name": "Discount",
+              "value": "Yes",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -512,
+        -320
+      ],
+      "id": "bc48dafc-5054-4d79-a857-42c239fb9734",
+      "name": "Discount_yes"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5458087c-5a43-47fa-8a97-59600b06bbb0",
+              "name": "Discount",
+              "value": "No",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -512,
+        -128
+      ],
+      "id": "cd93c2f4-b9c8-4c91-aaf2-dc7f38c639d1",
+      "name": "Discount_No"
+    },
+    {
+      "parameters": {
+        "content": "## 📋 Workflow Overview\n\n**Purpose:** Customer Feedback Collection & Discount Assignment\n\nThis workflow collects customer feedback through a form, automatically assigns discounts to customers who provide positive feedback, and logs all responses to a Google Sheet.\n\n**Flow:** Form → Check Feedback → Assign Discount → Save to Sheet",
+        "height": 216,
+        "width": 460,
+        "color": 4
+      },
+      "id": "3b257546-eb83-4342-8e4c-2f8e024faa59",
+      "name": "Sticky Note 0bc9f4ff",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1008,
+        -560
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 📝 Form Trigger\n\n**Collects 4 fields:**\n• Email ID (required)\n• Name (required)\n• Age (required)\n• Feedback dropdown: Positive, Neutral, or Negative\n\n**Output example:**\n```\n{\n  \"Email ID\": \"John@google.com\",\n  \"Name\": \"John,\n  \"Age\": 15,\n  \"Feedback\": \"Negative\",\n  \"submittedAt\": \"2026-05-18T09:53:08.125-04:00\"\n}\n```",
+        "height": 424,
+        "width": 412,
+        "color": 2
+      },
+      "id": "828858d7-d807-4a48-b2a5-3bf8f8a9e3f9",
+      "name": "Sticky Note 79650c08",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1136,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 🔀 Conditional Branching\n\n**Checks:** Is Feedback = \"Positive\"?\n\n**True branch:** Customer gets discount\n**False branch:** No discount (Neutral or Negative feedback)\n\nThis implements a reward system for positive customer feedback.",
+        "height": 248,
+        "width": 300,
+        "color": 3
+      },
+      "id": "eafe57bc-3a9e-46f6-8a71-4ea34999b94b",
+      "name": "Sticky Note d86751c1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -592,
+        16
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 💰 Discount Assignment\n\n**Discount_yes:** Adds `Discount: \"Yes\"` field\n**Discount_No:** Adds `Discount: \"No\"` field\n\nBoth nodes preserve all original form data using `includeOtherFields: true`\n\n**Result:** Original data + new Discount field",
+        "height": 216,
+        "width": 316,
+        "color": 5
+      },
+      "id": "02d3db06-6dfc-48fc-a7af-8d61f06d7a4e",
+      "name": "Sticky Note 73cf1b50",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -192,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 🔗 Merge Node\n\n**Purpose:** Combines both branches back into one flow\n\n**Mode:** Append (concatenates all items from both inputs)\n\nThis ensures all form submissions—regardless of feedback type—proceed to the Google Sheet logging step.",
+        "height": 216,
+        "width": 332,
+        "color": 6
+      },
+      "id": "18b6188b-1a63-412e-9986-4aeb999de665",
+      "name": "Sticky Note ad4e024f",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        224,
+        48
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## 📊 Google Sheets Logging\n\n**Action:** Appends each submission as a new row\n\n**Columns mapped:**\n• Email ID\n• Name\n• Age\n• Feedback\n• submittedAt\n• formMode\n• Discount (added by previous nodes)\n\n**Result:** Permanent record of all feedback with discount eligibility",
+        "height": 360,
+        "width": 300,
+        "color": 7
+      },
+      "id": "484e1cd2-c3a8-495b-8d9c-08399a40463d",
+      "name": "Sticky Note d5f4823c",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        848,
+        48
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## ✨ Key Features\n\n1️⃣ **Automated Incentive:** Positive feedback = automatic discount\n2️⃣ **Complete Data Preservation:** All form fields retained throughout\n3️⃣ **Unified Logging:** Both discount and non-discount cases saved\n4️⃣ **Timestamp Tracking:** Submission time recorded\n5️⃣ **Scalable:** Handles multiple simultaneous submissions",
+        "color": 4
+      },
+      "id": "95576b54-9d2d-48fc-b72f-6330134ecd4d",
+      "name": "Sticky Note 698de182",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        240,
+        304
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Discount_yes",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Discount_No",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discount_yes": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discount_No": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "6dcd32f2-689f-4ace-8bd3-2425faa46d3d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "5460b78b4f016342c282bd33c33100e4fe1a0be81f4aa9b0ae59c3c17caca30d"
+  },
+  "id": "8ptgbX47a0ms9xc1",
+  "tags": []
+}
