@@ -1,4 +1,3 @@
-![](https://komarev.com)
 
 📝 This workflow collects customer feedback through a form, rewards positive feedback with discount eligibility, and logs all responses to Google Sheets.
 
